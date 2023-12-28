@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cyi1wk7u3eui5"]
+
+[node name="JumpAnimStarter" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.75, 48)

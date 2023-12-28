@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://ch8lwe3axh2a5"]
+
+[ext_resource type="Texture2D" uid="uid://cpipghmom42im" path="res://Assets/jump1.png" id="1_a717n"]
+[ext_resource type="Texture2D" uid="uid://oxm5kpxlgmw3" path="res://Assets/jump.png" id="1_w1lj4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7qlu"]
+atlas = ExtResource("1_a717n")
+region = Rect2(0, 0, 130, 130)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3yrx"]
+atlas = ExtResource("1_w1lj4")
+region = Rect2(0, 0, 52, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk0gg"]
+atlas = ExtResource("1_w1lj4")
+region = Rect2(52, 0, 52, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyic6"]
+atlas = ExtResource("1_w1lj4")
+region = Rect2(104, 0, 52, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcnrv"]
+atlas = ExtResource("1_w1lj4")
+region = Rect2(0, 52, 52, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqq6r"]
+atlas = ExtResource("1_w1lj4")
+region = Rect2(52, 52, 52, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcurx"]
+atlas = ExtResource("1_w1lj4")
+region = Rect2(104, 52, 52, 52)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1btov"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7qlu")
+}],
+"loop": true,
+"name": &"hide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3yrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk0gg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyic6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcnrv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqq6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcurx")
+}],
+"loop": false,
+"name": &"show",
+"speed": 7.0
+}]
+
+[node name="JumpAnim" type="AnimatedSprite2D"]
+texture_filter = 1
+position = Vector2(26, 548)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1btov")
+animation = &"show"

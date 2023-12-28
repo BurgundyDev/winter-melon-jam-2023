@@ -6,8 +6,19 @@ enum states
 	facing_right
 }
 
+enum anim_states
+{
+	not_played,
+	playing_now,
+	played
+}
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	jump_anim.global_position = player_colision.global_position
+	
+	
+	
 	
 func _input(event):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -15,6 +26,11 @@ func _input(event):
 	elif Input.is_action_just_pressed("debug_dump"):
 		print(get_distance_to_ram())
 		print(velocity.x)
+		print("jump anim: ")
+		print(jump_anim.global_position)
+		print("player: ")
+		print(global_position)
+		
 		
 	
 	
@@ -28,7 +44,12 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var player_sprite = $PlayerSprite
 @onready var player_character = $"."
 @onready var ram = $"../RAM"
-@onready var jump_anim = $jump_anim
+@onready var jump_anim = $"../JumpAnim"
+@onready var player_colision = $CollisionShape2D
+
+
+var jump_anim_state = anim_states.not_played
+
 
 
 
@@ -43,11 +64,28 @@ func _physics_process(delta):
 		player_sprite.pause()
 		
 	
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
+# --- Processing jump animation ---- 
 		
-	
+		if (jump_anim_state == anim_states.not_played ):
+			jump_anim.play("show")
+			jump_anim_state = anim_states.playing_now
+		else:
+			if (jump_anim_state == anim_states.playing_now):
+				pass
+			elif (jump_anim_state == anim_states.played):
+				jump_anim.play("hide")
+	else:
+		jump_anim.play("hide")
+		jump_anim_state = anim_states.not_played
+		jump_anim.global_position.x = player_sprite.global_position.x
+		
+
+# --- end of this jump anim hell D: -----				
+		
 
 	 #Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -76,8 +114,11 @@ func _physics_process(delta):
 		curr_state == states.facing_left
 		)
 
-# --- change velocity depending on distance to RAM  ---
 
+
+		
+		
+# --- change velocity depending on distance to RAM  ---
 
 func get_distance_to_ram():
 	var p_position = player_character.global_position
@@ -107,9 +148,8 @@ func get_friction():
 	return process_friction_change(temp)
 
 
-	
 
 
 
-		
-			
+func _on_jump_anim_animation_finished():
+	jump_anim_state = anim_states.played # Replace with function body.
