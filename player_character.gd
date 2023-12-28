@@ -12,6 +12,9 @@ func _ready():
 func _input(event):
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	elif Input.is_action_just_pressed("debug_dump"):
+		print(get_distance_to_ram())
+		print(velocity.x)
 		
 	
 	
@@ -21,16 +24,13 @@ func _input(event):
 # consts 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-const speed = 50
-const jump_power = 800
-const stopping_friction = 0.6
-const running_friction = 0.9
-
-
-@onready var player_sprite = $PlayerSprite
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var player_sprite = $PlayerSprite
+@onready var player_character = $"."
+@onready var ram = $"../RAM"
+@onready var jump_anim = $jump_anim
+
+
 
 var curr_state = states.facing_right
 
@@ -53,13 +53,13 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY * get_jump_modifier()
 		
+		
 
 	 #Get the input direction and handle the movement/deceleration.
 	 #As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * SPEED * get_speed_modifier()
-		print(velocity.x)
 		curr_state = states.facing_left if velocity.x < 0 else states.facing_right
 	else:
 		velocity.x = move_toward(
@@ -77,8 +77,7 @@ func _physics_process(delta):
 		)
 
 # --- change velocity depending on distance to RAM  ---
-@onready var player_character = $"."
-@onready var ram = $"../RAM"
+
 
 func get_distance_to_ram():
 	var p_position = player_character.global_position
