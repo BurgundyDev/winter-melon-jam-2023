@@ -22,8 +22,8 @@ func _input(event):
 # ------ PHYSICS --------
 
 # consts 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 400.0
+const JUMP_VELOCITY = -450.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var player_sprite = $PlayerSprite
 @onready var player_character = $"."
