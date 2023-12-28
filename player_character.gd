@@ -38,7 +38,7 @@ var curr_state = states.facing_right
 func _physics_process(delta):
 	
 	if (velocity.x > 1 || velocity.x < -1): #pause the animation instead of resetting it 
-		player_sprite.play("move")
+		player_sprite.play("move", abs(0.01 * velocity.x))
 	else:
 		player_sprite.pause()
 		
