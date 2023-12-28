@@ -6,11 +6,26 @@ enum states
 	facing_right
 }
 
+func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
+func _input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
+	
+	
 
 # ------ PHYSICS --------
 
+# consts 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
+const speed = 50
+const jump_power = 800
+const stopping_friction = 0.6
+const running_friction = 0.9
+
 
 @onready var player_sprite = $PlayerSprite
 
@@ -31,20 +46,27 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		
+	
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	 #Handle jump.
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY * get_jump_modifier()
+		
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+	 #Get the input direction and handle the movement/deceleration.
+	 #As good practice, you should replace UI actions with custom gameplay actions.
+	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * SPEED * get_speed_modifier()
 		print(velocity.x)
 		curr_state = states.facing_left if velocity.x < 0 else states.facing_right
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(
+			velocity.x,
+			0,
+			get_friction()
+			)
 
 	move_and_slide()
 	
@@ -71,9 +93,22 @@ func get_speed_modifier():
 	var temp = get_distance_to_ram()
 	return process_v_change(temp)
 	
+func process_jump_change(x):
+	return 500/x
+
+func get_jump_modifier():
+	var temp = get_distance_to_ram()
+	return process_jump_change(temp)
+
+func process_friction_change(x):
+	return 5000/x
+	
+func get_friction():
+	var temp = get_distance_to_ram()
+	return process_friction_change(temp)
+
 
 	
-
 
 
 
