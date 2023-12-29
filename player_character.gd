@@ -38,8 +38,8 @@ func _input(event):
 # ------ PHYSICS --------
 
 # consts 
-const SPEED = 400.0
-const JUMP_VELOCITY = -450.0
+const SPEED = 500.0
+const JUMP_VELOCITY = -550.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var player_sprite = $PlayerSprite
 @onready var player_character = $"."
@@ -71,7 +71,7 @@ func _physics_process(delta):
 # --- Processing jump animation ---- 
 		
 		if (jump_anim_state == anim_states.not_played ):
-			jump_anim.play("show")
+			jump_anim.play("show", (1/get_jump_modifier()) * 8)
 			jump_anim_state = anim_states.playing_now
 		else:
 			if (jump_anim_state == anim_states.playing_now):

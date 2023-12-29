@@ -481,6 +481,7 @@ position = Vector2(3, 4)
 
 [node name="RAM" parent="." instance=ExtResource("4_kdfbs")]
 position = Vector2(815, 315)
+target_level = "res://player_character.tscn"
 
 [node name="JumpAnim" parent="." instance=ExtResource("5_1ia04")]
 script = ExtResource("6_4obu6")
