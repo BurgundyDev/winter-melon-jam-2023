@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://06qt38uoq5gb"]
+
+[ext_resource type="Script" path="res://Obstacle.gd" id="1_2c23o"]
+[ext_resource type="Texture2D" uid="uid://mk4ggwrqkct3" path="res://Assets/cactus.png" id="2_rtj5n"]
+
+[node name="ObstacleArea" type="Area2D"]
+script = ExtResource("1_2c23o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_rtj5n")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(14, 0, 6, 0, 6, 20, 8, 20, 8, 10, 12, 10, 12, 24, 6, 24, 6, 32, -6, 32, -6, 14, -14, 14, -14, -22, -8, -22, -8, 8, -6, 8, -6, -28, -4, -28, -4, -30, -2, -30, -2, -32, 2, -32, 2, -30, 4, -30, 4, -28, 6, -28, 6, -6, 8, -6, 8, -30, 14, -30)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

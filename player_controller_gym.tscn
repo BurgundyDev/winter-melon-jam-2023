@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ekmkebdkx6w"]
+[gd_scene load_steps=11 format=3 uid="uid://ekmkebdkx6w"]
 
 [ext_resource type="Texture2D" uid="uid://cuexajdmxmskl" path="res://Assets/gym/pa1/Free/Background/Pink.png" id="1_m6nqo"]
 [ext_resource type="Script" path="res://player_controller_gym.gd" id="1_wkq3a"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dpqkc2ku6se2g" path="res://ram.tscn" id="4_kdfbs"]
 [ext_resource type="PackedScene" uid="uid://ch8lwe3axh2a5" path="res://jump_anim.tscn" id="5_1ia04"]
 [ext_resource type="Script" path="res://jump_anim.gd" id="6_4obu6"]
+[ext_resource type="PackedScene" uid="uid://06qt38uoq5gb" path="res://obstacle_area.tscn" id="8_yeb4m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kiivr"]
 texture = ExtResource("2_yyrp4")
@@ -481,9 +482,12 @@ position = Vector2(3, 4)
 
 [node name="RAM" parent="." instance=ExtResource("4_kdfbs")]
 position = Vector2(815, 315)
-target_level = "res://player_character.tscn"
+target_level = "res://main_menu.tscn"
 
 [node name="JumpAnim" parent="." instance=ExtResource("5_1ia04")]
 script = ExtResource("6_4obu6")
+
+[node name="ObstacleArea" parent="." instance=ExtResource("8_yeb4m")]
+position = Vector2(430, 543)
 
 [connection signal="animation_finished" from="JumpAnim" to="Player_character" method="_on_jump_anim_animation_finished"]
